@@ -9,6 +9,15 @@ export class CountriesService {
 
   private apiUrl: string = 'https://restcountries.com/v3.1';
 
+  searchCountryByAlphaCode(code: string): Observable<Country[]> {
+    const url = `${this.apiUrl}/alpha/${code}`;
+
+    return this.http.get<Country[]>(url).pipe(
+      // map(countries => countries.length > 0 ? countries[0]: null ),
+      catchError(() => of([]))
+    );
+  }
+
   searchCapital(term: string): Observable<Country[]> {
     return this.http
       .get<Country[]>(`${this.apiUrl}/capital/${term}`)
