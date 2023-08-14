@@ -7,12 +7,15 @@ import { Country } from '../../interfaces/country';
   templateUrl: './by-capital-page.component.html',
 })
 export class ByCapitalPageComponent {
+  public isLoading: boolean = false;
   public countries: Country[] = [];
 
   constructor(private countriesService: CountriesService) {}
   searchByCapital(term: string): void {
+    this.isLoading = true;
     this.countriesService.searchCapital(term).subscribe((countries) => {
       this.countries = countries;
+      this.isLoading = false;
     });
   }
 }
